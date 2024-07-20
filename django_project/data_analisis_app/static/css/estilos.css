@@ -31,6 +31,9 @@ body {
     background: var(--bg-menu);
     padding: 20px;
     transition: max-width .3s ease;
+    position: fixed; /* Agrega esta línea */
+    top: 0; /* Asegura que esté en la parte superior de la página */
+    left: 0; /* Asegura que esté en la parte izquierda de la página */
 }
 
 .top-menu {

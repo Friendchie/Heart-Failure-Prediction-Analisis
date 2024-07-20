@@ -8,17 +8,66 @@
     <!-- BOX ICONS -->
     <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
     <!-- CUSTOM CSS -->
-    <link rel="stylesheet" href="Heart-Failure-Prediction-Analisis/django_project/data_analisis_app/static/css/estilos.css">
+    <link rel="stylesheet" href="/static/css/estilos.css">
     <!-- CUSTOM JS -->
-    <script src="Heart-Failure-Prediction-Analisis/django_project/data_analisis_app/static/js/app.js" defer></script>
+    <script src="/static/js/app.js" defer></script>
+
+    <style>
+        .ventana {
+            position: absolute;
+            top: 0px; /* Ajusta según sea necesario */
+            left: 300px; /* Ajusta según sea necesario */
+            width: 1050px;
+            height: 200px;
+            background-image: url('https://www.paho.org/sites/default/files/untitled_1500_540_px_1_1.jpg'); /* Cambia esto por la ruta de tu imagen */
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            font-family: Arial, sans-serif;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .ventana::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5); /* Ajusta el color y la opacidad según sea necesario */
+            z-index: 1;
+        }
+
+        .ventana span {
+            position: relative;
+            z-index: 2;
+            color: white;
+            font-size: 24px;
+            font-family: Arial, sans-serif;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+        
+    </style> 
 </head>
 <body>
+
+    <div class="ventana">
+        <span><h1 class="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">Heart Failure Prediction - DataSet</h1></span>
+    </div>
 
     <div class="menu-dashboard">
         <!-- TOP MENU -->
         <div class="top-menu">
             <div class="logo">
-                <img src="Heart-Failure-Prediction-Analisis/django_project/data_analisis_app/static/img/logo.svg" alt="">
+                <img src="/static/img/logo.svg" alt="">
                 <span>TuMejorWeb</span>
             </div>
             <div class="toggle">
@@ -32,45 +81,25 @@
         </div>
         <!-- MENU -->
         <div class="menu">
-            <div class="enlace">
-                <i class="bx bx-grid-alt"></i>
-                <span>Dashboard</span>
-            </div>
+            <a href="/dashboard1.html" class="enlace">
+                <i class='bx bx-bar-chart-square'></i>
+                <span>Dashboard 1</span>
+            </a>
 
-            <div class="enlace">
-                <i class="bx bx-user"></i>
-                <span>Usuarios</span>
-            </div>
+            <a href="/dashboard2.html" class="enlace">
+                <i class='bx bx-bar-chart-square'></i>
+                <span>Dashboard 2</span>
+            </a>
 
-            <div class="enlace">
-                <i class="bx bx-grid-alt"></i>
-                <span>Analíticas</span>
-            </div>
+            <a href="/dashboard3.html" class="enlace">
+                <i class='bx bx-bar-chart-square'></i>
+                <span>Dashboard 3</span>
+            </a>
 
-            <div class="enlace">
-                <i class="bx bx-message-square"></i>
-                <span>Mensajes</span>
-            </div>
-
-            <div class="enlace">
-                <i class="bx bx-file-blank"></i>
-                <span>Archivos</span>
-            </div>
-
-            <div class="enlace">
-                <i class="bx bx-cart"></i>
-                <span>Pedidos</span>
-            </div>
-
-            <div class="enlace">
-                <i class="bx bx-heart"></i>
-                <span>Favoritos</span>
-            </div>
-
-            <div class="enlace">
-                <i class="bx bx-cog"></i>
-                <span>Configuración</span>
-            </div>
+            <a href="/dashboard4.html" class="enlace">
+                <i class='bx bx-bar-chart-square'></i>
+                <span>Dashboard 4</span>
+            </a>
         </div>
     </div>
     
