@@ -12,50 +12,7 @@
     <!-- CUSTOM JS -->
     <script src="/static/js/app.js" defer></script>
 
-    <style>
-        .ventana {
-            position: absolute;
-            top: 0px; /* Ajusta según sea necesario */
-            left: 300px; /* Ajusta según sea necesario */
-            width: 1050px;
-            height: 200px;
-            background-image: url('https://www.paho.org/sites/default/files/untitled_1500_540_px_1_1.jpg'); /* Cambia esto por la ruta de tu imagen */
-            background-size: cover;
-            background-position: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 24px;
-            font-family: Arial, sans-serif;
-            border: 2px solid #ccc;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-        }
-
-        .ventana::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5); /* Ajusta el color y la opacidad según sea necesario */
-            z-index: 1;
-        }
-
-        .ventana span {
-            position: relative;
-            z-index: 2;
-            color: white;
-            font-size: 24px;
-            font-family: Arial, sans-serif;
-            padding: 5px 10px;
-            border-radius: 5px;
-        }
-        
-    </style> 
+    
 </head>
 <body>
 
@@ -81,26 +38,30 @@
         </div>
         <!-- MENU -->
         <div class="menu">
-            <a href="/dashboard1.html" class="enlace">
+            <a href="#" class="enlace" data-dashboard="1">
                 <i class='bx bx-bar-chart-square'></i>
                 <span>Dashboard 1</span>
             </a>
 
-            <a href="/dashboard2.html" class="enlace">
+            <a href="#" class="enlace" data-dashboard="2">
                 <i class='bx bx-bar-chart-square'></i>
                 <span>Dashboard 2</span>
             </a>
 
-            <a href="/dashboard3.html" class="enlace">
+            <a href="#" class="enlace" data-dashboard="3">
                 <i class='bx bx-bar-chart-square'></i>
                 <span>Dashboard 3</span>
             </a>
 
-            <a href="/dashboard4.html" class="enlace">
+            <a href="#" class="enlace" data-dashboard="4">
                 <i class='bx bx-bar-chart-square'></i>
                 <span>Dashboard 4</span>
             </a>
         </div>
+    </div>
+
+    <div class="contenido" id="dashboardContent">
+        
     </div>
     
 </body>

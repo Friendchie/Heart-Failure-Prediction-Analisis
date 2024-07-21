@@ -2,7 +2,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Quicksand&display=swap');
 
 /* VARIABLES */
-
 :root {
     --blanco: #E0E0E0;
     --azul-opacidad: #184463;
@@ -11,8 +10,7 @@
 }
 
 /* GENERALES */
-
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -24,16 +22,16 @@ body {
 }
 
 /* LAYOUT */
-
 .menu-dashboard {
     max-width: 150px;
     height: 100vh;
     background: var(--bg-menu);
     padding: 20px;
-    transition: max-width .3s ease;
-    position: fixed; /* Agrega esta línea */
-    top: 0; /* Asegura que esté en la parte superior de la página */
-    left: 0; /* Asegura que esté en la parte izquierda de la página */
+    transition: max-width 0.3s ease;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 2; /* Asegura que el menú esté por encima */
 }
 
 .top-menu {
@@ -49,7 +47,7 @@ body {
 
 .top-menu .logo img {
     width: 40px;
-    transition: width .3s ease;
+    transition: width 0.3s ease;
 }
 
 .top-menu .logo span {
@@ -72,7 +70,6 @@ body {
 }
 
 /* INPUT BOX */
-
 .input-search {
     width: 100%;
     margin: 50px 0;
@@ -100,7 +97,6 @@ body {
 }
 
 /* ENLACES MENU */
-
 .menu .enlace {
     width: 100%;
     padding: 20px 0 20px 17px;
@@ -110,21 +106,28 @@ body {
     margin-bottom: 20px;
     cursor: pointer;
     font-size: 20px;
-    transition: all .3s ease;
+    transition: all 0.3s ease;
+    text-decoration: none; /* Elimina el subrayado */
+    color: var(--blanco); /* Cambia el color del texto (puedes ajustar el color aquí) */
+
 }
 
 .menu .enlace:hover {
-    background: var(--azul-opacidad);
+    background: var(--azul-opacidad); /* Cambia el fondo al pasar el ratón sobre el enlace */
+    color: var(--blanco); /* Cambia el color del texto al pasar el ratón sobre el enlace */
 }
 
+
+
 .menu .enlace i {
+    color: var(--blanco); /* Cambia el color del icono (puedes ajustar el color aquí) */
     margin-right: 20px;
     font-size: 25px;
 }
 
 .menu .enlace span {
     opacity: 0;
-    transition: opacity .3s ease;
+    transition: opacity 0.3s ease;
 }
 
 .menu-dashboard.open {
@@ -135,7 +138,7 @@ body {
     display: block;
 }
 
-.menu-dashboard.open .input-search
+.menu-dashboard.open .input-search,
 .menu-dashboard.open .menu .enlace {
     width: auto;
 }
@@ -152,17 +155,75 @@ body {
     opacity: 1;
 }
 
+.contenido {
+    margin-left: 0px; /* Asegura que no se solape con el menú */
+    padding: 20px;
+    background-color: white; /* Fondo blanco para el contenido */
+    color: black; /* Color de texto negro */
+    height: 80vh; /* Ocupa al menos la altura de la ventana */
+    width: calc(100% - 160px); /* Ajusta el ancho para ocupar el espacio restante */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra para darle un efecto flotante */
+    border-radius: 10px; /* Bordes redondeados */
+    position: absolute; /* Posición absoluta para control total */
+    top: 200px; /* Alinea en la parte superior */
+    left: 160px; /* Alinea a la derecha del menú */
+    transition: all 0.3s ease; /* Transición suave para cambios */
+}
 
+/* Cuando el menú está abierto */
+.menu-dashboard.open + .contenido {
+    left: 300px; /* Desplaza el contenedor cuando el menú está expandido */
+    width: calc(100% - 300px); /* Ajusta el ancho para ocupar el espacio restante */
+}
 
+.ventana {
+    position: relative;
+    top: 0; /* Ajusta según sea necesario */
+    left: 160px; /* Ajusta según sea necesario */
+    width: calc(100% - 160px); /* Ajusta el ancho para ocupar el espacio restante */
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 24px;
+    font-family: Arial, sans-serif;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: all 0.3s ease; /* Transición suave para cambios */
+    z-index: 1;
+}
 
+.ventana::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('https://www.paho.org/sites/default/files/untitled_1500_540_px_1_1.jpg'); /* Cambia esto por la ruta de tu imagen */
+    background-size: cover;
+    background-position: center;
+    filter: brightness(0.5); /* Ajusta el nivel de sombreado */
+    border-radius: 10px;
+    z-index: -1; /* Coloca el pseudo-elemento detrás del contenido */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* Sombra para el fondo */
+}
 
+.ventana span {
+    position: relative;
+    z-index: 2;
+    color: white;
+    font-size: 24px;
+    font-family: Arial, sans-serif;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
 
-
-
-
-
-
-
-
-
+/* Cuando el menú está abierto */
+.menu-dashboard.open + .ventana {
+    left: 300px; /* Desplaza el contenedor cuando el menú está expandido */
+    width: calc(100% - 300px); /* Ajusta el ancho para ocupar el espacio restante */
+}
 
