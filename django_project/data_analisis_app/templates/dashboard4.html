@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Análisis de Datos de Salud</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container mx-auto px-4 py-8">
+        <div style="width: 800px; height: 600px; margin-bottom: 40px;">
+            <h3>Creatinina Sérica vs Sodio Sérico (No imputation)</h3>
+            <canvas id="scatterPlot"></canvas>
+            <h3>Creatinina Sérica vs Sodio Sérico (Imputación Iterativa)</h3>
+            <canvas id="scatterPlot2"></canvas>
+        </div>
+    </div>
+    
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Gráfico de dispersión
+        const ctxScatter = document.getElementById('scatterPlot').getContext('2d');
+        const scatterData = JSON.parse('{{ scatter_data|escapejs }}');
+    
+        const scatterChart = new Chart(ctxScatter, {
+            type: 'scatter',
+            data: {
+                datasets: [{
+                    label: 'No Deceso',
+                    data: scatterData.filter(d => d.DEATH_EVENT === 0).map(d => ({
+                        x: d.serum_creatinine,
+                        y: d.serum_sodium
+                    })),
+                    backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                    pointRadius: 5
+                },
+                {
+                    label: 'Deceso',
+                    data: scatterData.filter(d => d.DEATH_EVENT === 1).map(d => ({
+                        x: d.serum_creatinine,
+                        y: d.serum_sodium
+                    })),
+                    backgroundColor: 'rgba(255, 99, 132, 0.5)',
+                    pointRadius: 5
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Creatinina Sérica vs Sodio Sérico (Imputación Iterativa)'
+                    },
+                    legend: {
+                        display: true,
+                        position: 'top'
+                    }
+                },
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Creatinina Sérica'
+                        },
+                        suggestedMin: 0,
+                        suggestedMax: 4
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Sodio Sérico'
+                        }
+                    }
+                }
+            }
+        });
+
+        // Gráfico de dispersión
+        const ctxScatter2 = document.getElementById('scatterPlot2').getContext('2d');
+        const scatterData2 = JSON.parse('{{ scatter_data_iterative|escapejs }}');
+    
+        const scatterChart2 = new Chart(ctxScatter2, {
+            type: 'scatter',
+            data: {
+                datasets: [{
+                    label: 'No Deceso',
+                    data: scatterData2.filter(d => d.DEATH_EVENT === 0).map(d => ({
+                        x: d.serum_creatinine,
+                        y: d.serum_sodium
+                    })),
+                    backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                    pointRadius: 5
+                },
+                {
+                    label: 'Deceso',
+                    data: scatterData2.filter(d => d.DEATH_EVENT === 1).map(d => ({
+                        x: d.serum_creatinine,
+                        y: d.serum_sodium
+                    })),
+                    backgroundColor: 'rgba(255, 99, 132, 0.5)',
+                    pointRadius: 5
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Creatinina Sérica vs Sodio Sérico (Imputación Iterativa)'
+                    },
+                    legend: {
+                        display: true,
+                        position: 'top'
+                    }
+                },
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Creatinina Sérica'
+                        },
+                        suggestedMin: 0,
+                        suggestedMax: 4
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Sodio Sérico'
+                        }
+                    }
+                }
+            }
+        });
+        
+    });
+    </script>
+</body>
+</html>

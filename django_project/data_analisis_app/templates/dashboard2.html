@@ -1,0 +1,128 @@
+{% block content %}
+<div class="container mx-auto px-4 py-8">
+    <h2 class="text-2xl font-bold mb-4">Matriz de Correlación (No Imputation)</h2>
+    <div id="correlationMatrix" style="width:100%; height:800px;"></div>
+    <h2 class="text-2xl font-bold mb-4">Matriz de Correlación (Imputación Simple con Media)</h2>
+    <div id="correlationMatrix2" style="width:100%; height:800px;"></div>
+    <p class="mt-4 text-sm text-gray-600">
+        Esta matriz muestra la correlación entre diferentes variables. Los colores rojos indican correlaciones positivas,
+        los azules indican correlaciones negativas, y el blanco indica poca o ninguna correlación.
+    </p>
+</div>
+
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var correlationMatrix = JSON.parse('{{ correlation_matrix|escapejs }}');
+        var features = JSON.parse('{{ features|escapejs }}');
+
+        // Ordenar las características por similitud
+        var orderedFeatures = features.sort((a, b) => {
+            return correlationMatrix[b][b] - correlationMatrix[a][a];
+        });
+
+        var data = [{
+            z: orderedFeatures.map(feature => 
+                orderedFeatures.map(f => correlationMatrix[feature][f])
+            ),
+            x: orderedFeatures,
+            y: orderedFeatures,
+            type: 'heatmap',
+            colorscale: [
+                [0, 'rgb(0,0,255)'],
+                [0.5, 'rgb(255,255,255)'],
+                [1, 'rgb(255,0,0)']
+            ],
+            zmin: -1,
+            zmax: 1,
+            text: orderedFeatures.map(feature => 
+                orderedFeatures.map(f => correlationMatrix[feature][f].toFixed(2))
+            ),
+            hoverinfo: 'text',
+            texttemplate: '%{text}',
+            textfont: {size: 10}
+        }];
+
+        var layout = {
+            title: 'Matriz de Correlación (No imputated data)',
+            xaxis: {
+                title: 'Características',
+                tickangle: -45,
+                tickfont: {size: 10}
+            },
+            yaxis: {
+                title: 'Características',
+                tickfont: {size: 10}
+            },
+            width: 800,
+            height: 800,
+            margin: {
+                l: 150,
+                r: 50,
+                b: 150,
+                t: 100,
+                pad: 4
+            }
+        };
+
+        Plotly.newPlot('correlationMatrix', data, layout);
+
+        // imputed data plot
+        var correlationMatrix2 = JSON.parse('{{ correlation_matrix_mean|escapejs }}');
+        var features = JSON.parse('{{ features|escapejs }}');
+
+        // Ordenar las características por similitud
+        var orderedFeatures2 = features.sort((a, b) => {
+            return correlationMatrix2[b][b] - correlationMatrix2[a][a];
+        });
+
+        var data = [{
+            z: orderedFeatures2.map(feature => 
+                orderedFeatures2.map(f => correlationMatrix2[feature][f])
+            ),
+            x: orderedFeatures2,
+            y: orderedFeatures2,
+            type: 'heatmap',
+            colorscale: [
+                [0, 'rgb(0,0,255)'],
+                [0.5, 'rgb(255,255,255)'],
+                [1, 'rgb(255,0,0)']
+            ],
+            zmin: -1,
+            zmax: 1,
+            text: orderedFeatures2.map(feature => 
+                orderedFeatures2.map(f => correlationMatrix2[feature][f].toFixed(2))
+            ),
+            hoverinfo: 'text',
+            texttemplate: '%{text}',
+            textfont: {size: 10}
+        }];
+
+        var layout = {
+            title: 'Matriz de Correlación (Imputación Simple con Media)',
+            xaxis: {
+                title: 'Características',
+                tickangle: -45,
+                tickfont: {size: 10}
+            },
+            yaxis: {
+                title: 'Características',
+                tickfont: {size: 10}
+            },
+            width: 800,
+            height: 800,
+            margin: {
+                l: 150,
+                r: 50,
+                b: 150,
+                t: 100,
+                pad: 4
+            }
+        };
+
+        Plotly.newPlot('correlationMatrix2', data, layout);
+
+        
+    });
+</script>
+{% endblock %}

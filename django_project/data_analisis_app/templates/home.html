@@ -1,68 +1,101 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Menu Dashboard</title>
-    <!-- BOX ICONS -->
-    <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
-    <!-- CUSTOM CSS -->
-    <link rel="stylesheet" href="/static/css/estilos.css">
-    <!-- CUSTOM JS -->
-    <script src="/static/js/app.js" defer></script>
-
-    
+    <title>Document</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.4.7/flowbite.min.css" rel="stylesheet">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.4.7/flowbite.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 </head>
-<body>
-
-    <div class="ventana">
-        <span><h1 class="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">Heart Failure Prediction - DataSet</h1></span>
-    </div>
-
-    <div class="menu-dashboard">
-        <!-- TOP MENU -->
-        <div class="top-menu">
-            <div class="logo">
-                <img src="/static/img/logo.svg" alt="">
-                <span>TuMejorWeb</span>
-            </div>
-            <div class="toggle">
-                <i class='bx bx-menu'></i>
-            </div>
-        </div>
-        <!-- INPUT SEARCH -->
-        <div class="input-search">
-            <i class='bx bx-search'></i>
-            <input type="text" class="input" placeholder="Buscar">
-        </div>
-        <!-- MENU -->
-        <div class="menu">
-            <a href="#" class="enlace" data-dashboard="1">
-                <i class='bx bx-bar-chart-square'></i>
-                <span>Dashboard 1</span>
-            </a>
-
-            <a href="#" class="enlace" data-dashboard="2">
-                <i class='bx bx-bar-chart-square'></i>
-                <span>Dashboard 2</span>
-            </a>
-
-            <a href="#" class="enlace" data-dashboard="3">
-                <i class='bx bx-bar-chart-square'></i>
-                <span>Dashboard 3</span>
-            </a>
-
-            <a href="#" class="enlace" data-dashboard="4">
-                <i class='bx bx-bar-chart-square'></i>
-                <span>Dashboard 4</span>
-            </a>
-        </div>
-    </div>
-
-    <div class="contenido" id="dashboardContent">
-        
-    </div>
+<body class="bg-gray-100">
     
+    <aside id="default-sidebar" class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidebar">
+        <div class="h-full px-3 py-4 overflow-y-auto bg-gray-800">
+            <!-- Logo -->
+            <div class="flex items-center mb-5 p-2">
+                <img src="{% static 'img/logo.svg' %}" alt="Logo" class="w-8 h-8 mr-3">
+                <span class="text-xl font-semibold text-white">Análisis Cardiáco</span>
+            </div>
+            <!-- Menu items -->
+            <ul class="space-y-2 font-medium">
+                <li>
+                    <a href="#" class="flex items-center p-2 text-white rounded-lg hover:bg-gray-700 group" data-dashboard="1">
+                        <i class='bx bx-home text-2xl'></i>
+                        <span class="ml-3">Home</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="flex items-center p-2 text-white rounded-lg hover:bg-gray-700 group" data-dashboard="2">
+                        <i class='bx bx-bar-chart-square text-2xl'></i>
+                        <span class="ml-3">Dashboard 2</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="flex items-center p-2 text-white rounded-lg hover:bg-gray-700 group" data-dashboard="3">
+                        <i class='bx bx-bar-chart-square text-2xl'></i>
+                        <span class="ml-3">Dashboard 3</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="flex items-center p-2 text-white rounded-lg hover:bg-gray-700 group" data-dashboard="4">
+                        <i class='bx bx-bar-chart-square text-2xl'></i>
+                        <span class="ml-3">Dashboard 4</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </aside>
+
+    <div class="p-4 sm:ml-64">
+        <div class="ventana mb-5">
+            <div class="w-full max-w-4xl mx-auto h-60 p-6 bg-cover bg-center bg-no-repeat border border-gray-200 rounded-lg shadow hover:opacity-90 transition-opacity duration-300 ease-in-out dark:border-gray-700 flex flex-col justify-center items-center relative overflow-hidden" style="background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSKQpHQG2gWxJBae0vD5s_sox7-XnRIEh2P7A&s');">
+                <div class="absolute inset-0 bg-black opacity-40"></div>
+                <div class="absolute inset-0 backdrop-blur-sm"></div>
+                <h5 class="mb-2 text-5xl font-bold tracking-tight text-white drop-shadow-lg text-center z-10 relative">Heart Failure Prediction - DataSet</h5>
+            </div>
+        </div>
+
+        <div id="dashboard1" class="dashboard-content">
+            {% include 'dashboard.html' %}
+        </div>
+        <div id="dashboard2" class="dashboard-content hidden">
+            {% include 'dashboard2.html' %}
+        
+        </div>
+        <div id="dashboard3" class="dashboard-content hidden">
+            {% include 'dashboard3.html' %}
+            
+        </div>
+        <div id="dashboard4" class="dashboard-content hidden">
+            {% include 'dashboard4.html' %}
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const dashboardLinks = document.querySelectorAll('[data-dashboard]');
+            const dashboardContents = document.querySelectorAll('.dashboard-content');
+
+            dashboardLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const dashboardId = this.getAttribute('data-dashboard');
+                    
+                    dashboardContents.forEach(content => {
+                        content.classList.add('hidden');
+                    });
+
+                    const selectedDashboard = document.getElementById(`dashboard${dashboardId}`);
+                    if (selectedDashboard) {
+                        selectedDashboard.classList.remove('hidden');
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>

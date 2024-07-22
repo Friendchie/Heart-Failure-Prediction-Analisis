@@ -1,0 +1,104 @@
+
+{% block content %}
+    <div class="container mx-auto px-4 py-8">
+        <div class="container mx-auto px-4 py-8">
+            <h2 class="text-2xl font-bold mb-4">Gráfico de Fracción de Eyección por Rangos de Edad</h2>
+            <div id="ejectionFractionChart"></div>
+        </div>
+        <div class="container mx-auto px-4 py-8">
+            <h2 class="text-2xl font-bold mb-4">Gráfico de Fracción de Eyección por Rangos de Edad (Median imputation )</h2>
+            <div id="ejectionFractionChart2"></div>
+        </div>
+    </div>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var ageRanges = JSON.parse('{{ age_ranges|escapejs }}');
+            var ejectionFractionData = JSON.parse('{{ ejection_fraction_data|escapejs }}');
+            var ageMidpoints = JSON.parse('{{ age_midpoints|escapejs }}');
+            var ejectionFractionMeans = JSON.parse('{{ ejection_fraction|escapejs }}');
+
+
+            var traces = ageRanges.map((range, index) => ({
+                y: ejectionFractionData[index],
+                type: 'box',
+                name: range,
+                marker: {color: 'rgba(54, 162, 235, 0.6)'},
+                boxpoints: 'all',
+                line: {width: 0},
+            }));
+
+            var trendLine = {
+                x: ageMidpoints,
+                y: ejectionFractionMeans,
+                mode: 'lines+markers',
+                type: 'scatter',
+                name: 'Línea de Tendencia',
+                line: {color: 'rgba(255, 99, 132, 1)'}
+            };
+
+            var layout = {
+                title: 'Comparación de Fracción de Eyección por Rangos de Edad',
+                yaxis: {
+                    title: 'Fracción de Eyección',
+                    rangemode: 'tozero'
+                },
+                xaxis: {
+                    title: 'Rangos de Edad'
+                },
+                margin: { t: 50, r: 50, b: 50, l: 50 },
+                paper_bgcolor: 'rgba(0,0,0,0)',
+                plot_bgcolor: 'rgba(0,0,0,0)',
+                boxmode: 'group'
+            };
+
+            Plotly.newPlot('ejectionFractionChart', [...traces, trendLine], layout);
+
+            // imputation plot
+            var ageRanges2 = JSON.parse('{{ age_ranges_median|escapejs }}');
+            var ejectionFractionData2 = JSON.parse('{{ ejection_fraction_data_median|escapejs }}');
+            var ageMidpoints2 = JSON.parse('{{ age_midpoints_median|escapejs }}');
+            var ejectionFractionMeans2 = JSON.parse('{{ ejection_fraction_median|escapejs }}');
+
+
+            var traces2 = ageRanges2.map((range, index) => ({
+                y: ejectionFractionData2[index],
+                type: 'box',
+                name: range,
+                marker: {color: 'rgba(54, 162, 235, 0.6)'},
+                boxpoints: 'all',
+                line: {width: 0},
+            }));
+
+            var trendLine2 = {
+                x: ageMidpoints2,
+                y: ejectionFractionMeans2,
+                mode: 'lines+markers',
+                type: 'scatter',
+                name: 'Línea de Tendencia',
+                line: {color: 'rgba(255, 99, 132, 1)'}
+            };
+
+            var layout2 = {
+                title: 'Comparación de Fracción de Eyección por Rangos de Edad',
+                yaxis: {
+                    title: 'Fracción de Eyección',
+                    rangemode: 'tozero'
+                },
+                xaxis: {
+                    title: 'Rangos de Edad'
+                },
+                margin: { t: 50, r: 50, b: 50, l: 50 },
+                paper_bgcolor: 'rgba(0,0,0,0)',
+                plot_bgcolor: 'rgba(0,0,0,0)',
+                boxmode: 'group'
+            };
+
+            Plotly.newPlot('ejectionFractionChart2', [...traces2, trendLine2], layout2);
+            
+
+
+        });
+    </script>
+
+{% endblock %}
